@@ -1,7 +1,6 @@
 F:\Csharp\SeewoLamp\bin\Debug\SeewoLamp.exe.config
 F:\Csharp\SeewoLamp\bin\Debug\SeewoLamp.exe
 F:\Csharp\SeewoLamp\bin\Debug\SeewoLamp.pdb
-F:\Csharp\SeewoLamp\obj\Debug\SeewoLamp.csproj.AssemblyReference.cache
 F:\Csharp\SeewoLamp\obj\Debug\SeewoLamp.csproj.SuggestedBindingRedirects.cache
 F:\Csharp\SeewoLamp\obj\Debug\MainWindow.g.cs
 F:\Csharp\SeewoLamp\obj\Debug\App.g.cs
