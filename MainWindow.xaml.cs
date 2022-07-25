@@ -22,6 +22,7 @@ using System.Windows.Threading;
 
 namespace SeewoLamp
 {
+    public delegate void dlgtOk();
     internal enum AccentState
     {
         ACCENT_DISABLED = 1,
@@ -69,7 +70,7 @@ namespace SeewoLamp
             //{
             //    ImageSource = new BitmapImage(new Uri(TipToolAll))
             //};
-            
+
 
         }
 
@@ -116,32 +117,33 @@ namespace SeewoLamp
         {
             //this.DragMove();
         }
-
+        private Timeline _timeline;
         private void Timetable_Click(object sender, RoutedEventArgs e)
         {
-            //Timeline timeline = new Timeline();
-            //timeline.WindowStartupLocation = WindowStartupLocation.Manual;
-            //int xtimelineWidth = SystemInformation.PrimaryMonitorSize.Width;
-            //int yinttimelineHeight = SystemInformation.PrimaryMonitorSize.Height;
-            //Double ytimelineHeight = Convert.ToDouble(yinttimelineHeight);
-            //timeline.Left = xtimelineWidth / 4;
-            //timeline.Top = ytimelineHeight / 1.8;
-
-            //timeline.ShowDialog();
-
-            //Thread thread = new Thread(StartLessionsTable);
-            //thread.Start();
-            //StartLessionsTable();
-            //Dispatcher.BeginInvoke(new Action(delegate
+            var thread = new Thread(() =>
+            {
+                _timeline = new Timeline();
+                _timeline.Closed += (sender, args) =>
+                {
+                    // when window is closed - shutdown dispatcher
+                    _timeline.Dispatcher.InvokeShutdown();
+                };
+                _timeline.Show();
+                // run dispatcher (message pump) on this thread
+                System.Windows.Threading.Dispatcher.Run();
+            });
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
+            //Dispatcher.BeginInvoke(new Action(async delegate
             //{
-                Timeline timeline = new Timeline();
-                timeline.WindowStartupLocation = WindowStartupLocation.Manual;
-                int xtimelineWidth = SystemInformation.PrimaryMonitorSize.Width;
-                int yinttimelineHeight = SystemInformation.PrimaryMonitorSize.Height;
-                Double ytimelineHeight = Convert.ToDouble(yinttimelineHeight);
-                timeline.Left = xtimelineWidth / 4;
-                timeline.Top = ytimelineHeight / 1.8;
-                timeline.ShowDialog();
+
+            //Timeline timeline = new Timeline();
+            //dlgtOk dlgtok = new dlgtOk(ShowTheDialogPlus);
+            //this.Dispatcher.BeginInvoke(dlgtok);
+
+            //Action<Timeline> action = new Action<Timeline>(ShowTheDialogue);
+            //await timeline.Dispatcher.BeginInvoke(action);
+            //timeline.ShowDialog();
             //}));
         }
         static void StartLessionsTable()
@@ -152,12 +154,44 @@ namespace SeewoLamp
             //    Lessons lessons = new Lessons();
             //    lessons.ShowDialog();
             //}));
-            
+
         }
 
         private void Grid_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             this.Close();
+            _timeline.Dispatcher.Invoke(() => _timeline.Close());
+        }
+
+        //private async Task<string> ShowTheDialogue()
+        //{
+        //    return await Task.Run(() =>
+        //    {
+        //        Timeline timeline = new Timeline();
+        //        timeline.ShowDialog();
+        //        return "0";
+        //    });
+        //}
+        public void ShowTheDialogue(Timeline timeline)
+        {
+            timeline.WindowStartupLocation = WindowStartupLocation.Manual;
+            int xtimelineWidth = SystemInformation.PrimaryMonitorSize.Width;
+            int yinttimelineHeight = SystemInformation.PrimaryMonitorSize.Height;
+            Double ytimelineHeight = Convert.ToDouble(yinttimelineHeight);
+            timeline.Left = xtimelineWidth / 4;
+            timeline.Top = ytimelineHeight / 1.8;
+            timeline.ShowDialog();
+        }
+        private void ShowTheDialogPlus()
+        {
+            Timeline timeline = new Timeline();
+            timeline.WindowStartupLocation = WindowStartupLocation.Manual;
+            int xtimelineWidth = SystemInformation.PrimaryMonitorSize.Width;
+            int yinttimelineHeight = SystemInformation.PrimaryMonitorSize.Height;
+            Double ytimelineHeight = Convert.ToDouble(yinttimelineHeight);
+            timeline.Left = xtimelineWidth / 4;
+            timeline.Top = ytimelineHeight / 1.8;
+            timeline.ShowDialog();
         }
     }
 }

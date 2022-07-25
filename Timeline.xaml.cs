@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -31,17 +32,23 @@ namespace SeewoLamp
             DateTime d4 = Convert.ToDateTime(string.Format("{0}-{1}-{2}", d2.Year, d2.Month, d2.Day));
             string days = Convert.ToString((d4 - d3).Days);
             this.text.Content = "距离高考还有" + days + "天";
-            
-            Dispatcher.BeginInvoke(new Action(delegate
-            {
-                Lessons lessons = new Lessons();
-                lessons.ShowDialog();
-            }));
 
+            var thread = new Thread(() => {
+                _lessons = new Lessons();
+                _lessons.Closed += (sender, args) => {
+                    // when window is closed - shutdown dispatcher
+                    _lessons.Dispatcher.InvokeShutdown();
+                };
+                _lessons.Show();
+                // run dispatcher (message pump) on this thread
+                System.Windows.Threading.Dispatcher.Run();
+            });
+            thread.SetApartmentState(ApartmentState.STA);
+            thread.Start();
         }
 
 
-
+        private Lessons _lessons;
         private void Grid_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             DragMove();
@@ -54,7 +61,8 @@ namespace SeewoLamp
 
         private void Grid_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
-            this.Close();
+            //this.Close();
+            _lessons.Dispatcher.Invoke(() => _lessons.Close());
         }
     }
 }
