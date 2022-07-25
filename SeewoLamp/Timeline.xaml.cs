@@ -62,7 +62,7 @@ namespace SeewoLamp
         private void Grid_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             //this.Close();
-            this.Dispatcher.Invoke(() => this.Close());
+            _lessons.Dispatcher.Invoke(() => _lessons.Close());
         }
     }
 }

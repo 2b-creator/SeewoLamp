@@ -39,29 +39,28 @@ namespace SeewoLamp
             //string path = $@"{workDirectory}\Monday.txt";
             //StreamReader sr = new StreamReader(path, Encoding.Default);
             //String line;
-            string date = CycleText.Text;
             var lessonsKey = new List<string>();
-            //if (CycleText.Text == "星期日")
-            //{
-            string path = $@"{workDirectory}\tasks\{date}.txt";
-            StreamReader sr = new StreamReader(path, Encoding.Default);
-            String line;
-            while ((line = sr.ReadLine()) != null)
+            if (CycleText.Text == "星期日")
             {
+                string path = $@"{workDirectory}\Monday.txt";
+                StreamReader sr = new StreamReader(path, Encoding.Default);
+                String line;
+                while ((line = sr.ReadLine()) != null)
+                {
 
-                lessonsKey.Add(line);
+                    lessonsKey.Add(line);
+                }
+                One.Text = lessonsKey[0];
+                Two.Text = lessonsKey[1];
+                Three.Text = lessonsKey[2];
+                Four.Text = lessonsKey[3];
+                Five.Text = lessonsKey[4];
+                Six.Text = lessonsKey[5];
+                Seven.Text = lessonsKey[6];
+                Eight.Text = lessonsKey[7];
+                Nine.Text = lessonsKey[8];
             }
-            One.Text = lessonsKey[0];
-            Two.Text = lessonsKey[1];
-            Three.Text = lessonsKey[2];
-            Four.Text = lessonsKey[3];
-            Five.Text = lessonsKey[4];
-            Six.Text = lessonsKey[5];
-            Seven.Text = lessonsKey[6];
-            Eight.Text = lessonsKey[7];
-            Nine.Text = lessonsKey[8];
-            //}
-
+            
 
         }
         internal void EnableBlur()

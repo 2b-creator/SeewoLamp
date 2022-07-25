@@ -160,7 +160,7 @@ namespace SeewoLamp
         private void Grid_PreviewMouseRightButtonUp(object sender, MouseButtonEventArgs e)
         {
             this.Close();
-            this.Dispatcher.Invoke(() => this.Close());
+            _timeline.Dispatcher.Invoke(() => _timeline.Close());
         }
 
         //private async Task<string> ShowTheDialogue()

@@ -1,0 +1,23 @@
+﻿<Window x:Name="Window" x:Class="SeewoLamp.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SeewoLamp"
+        mc:Ignorable="d"
+        Title="SeewoLamp" Height="100" Width="150
+        " ShowInTaskbar="False" WindowStyle="None" MouseLeftButtonDown="Window_MouseLeftButtonDown" Closed="Window_Closed" SnapsToDevicePixels="True" ResizeMode="NoResize" Loaded="Window_Loaded" Foreground="{x:Null}" AllowsTransparency="True" MouseDown="Window_MouseDown" Background="{x:Null}" Topmost="True">
+    <Grid PreviewMouseRightButtonUp="Grid_PreviewMouseRightButtonUp">
+        <Border BorderThickness="1" BorderBrush="Gray"  CornerRadius="15,15,15,15"  >
+            <Border.Background>
+                <SolidColorBrush Color="Black" Opacity="0.3"/>
+            </Border.Background>
+            <Grid>
+                <Button x:Name="Timetable" Content="课表" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,0,0,0" Width="42" Click="Timetable_Click"/>
+                <Button Content="设置" HorizontalAlignment="Left" VerticalAlignment="Center" Width="42" Margin="96,0,0,0"/>
+            </Grid>
+        </Border>
+
+
+    </Grid>
+</Window>
