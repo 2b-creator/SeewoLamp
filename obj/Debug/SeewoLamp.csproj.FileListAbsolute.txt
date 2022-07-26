@@ -18,3 +18,4 @@ F:\Csharp\SeewoLamp\obj\Debug\Timeline.baml
 F:\Csharp\SeewoLamp\obj\Debug\Lessons.g.cs
 F:\Csharp\SeewoLamp\obj\Debug\Lessons.baml
 F:\Csharp\SeewoLamp\obj\Debug\SeewoLamp.csproj.ResolveComReference.cache
+F:\Csharp\SeewoLamp\obj\Debug\SeewoLamp.csproj.AssemblyReference.cache
